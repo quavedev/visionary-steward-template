@@ -1,6 +1,10 @@
 # Visionary Steward Template
 
-This directory is a reusable template for turning a project into an AI-guided software system.
+> **In a hurry?** Open **[basics-prompt.md](basics-prompt.md)**, copy the prompt, and paste it into your coding agent from inside your project. It applies just the basics — a short `AGENTS.md`, the key `internal-docs/ai/*` docs, and a decisions log — so any future agent can work in the repo safely. For the full setup, keep reading.
+
+> **Want it as a reusable skill?** Install it into any agent with one command — `npx skills add quavedev/visionary-steward-template` — then ask your agent to "apply the visionary steward". See [Install as a skill](#install-as-a-skill).
+
+This directory is a reusable template for turning a project into an AI-guided software system. It is also a portable **[Agent Skill](https://agentskills.io)**: [`skills/visionary-steward/`](skills/visionary-steward/SKILL.md) is a self-contained skill that any compliant agent (Claude Code, Codex, Cursor, Gemini CLI, …) can install and invoke by name instead of you pasting a prompt.
 
 It is based on the Quave ONE pattern from "The visionary steward", but it is intentionally stack-neutral. It should work whether the user uses GitHub Projects, Linear, Jira, or Notion; Next.js, Rails, Django, Meteor, Laravel, or microservices; a monorepo or many repos; external APIs or a mostly self-contained product.
 
@@ -58,6 +62,37 @@ For a new project, start with [playbooks/new-project-bootstrap.md](playbooks/new
 
 For an existing project, start with [playbooks/existing-project-repair.md](playbooks/existing-project-repair.md).
 
+## Install As A Skill
+
+The skill lives at [`skills/visionary-steward/`](skills/visionary-steward/SKILL.md) and follows the open **[Agent Skills](https://agentskills.io)** standard (a `SKILL.md` plus bundled `references/`). It is vendor-neutral — the same skill works in Claude Code, Codex, Cursor, Gemini CLI, and other compliant agents.
+
+### Install (recommended)
+
+```bash
+# Installs into whatever agents the CLI detects (Claude Code, Codex, Cursor, …)
+npx skills add quavedev/visionary-steward-template
+
+# Or scope it: global, a single skill, etc.
+npx skills add quavedev/visionary-steward-template --skill visionary-steward -g
+```
+
+Once published, the skill is also discoverable through the open ecosystem directory at [skills.sh](https://skills.sh). The `npx skills` command above is the simplest path and accepts any public GitHub `owner/repo`.
+
+### Install manually
+
+Copy the skill folder into your agent's skills directory — it is self-contained, so `references/` comes along:
+
+```bash
+# pick the one your agent reads: .agents/skills (portable), .claude/skills, .codex/skills
+cp -R skills/visionary-steward ~/.claude/skills/
+```
+
+### Use it
+
+From inside any project, ask your agent to **"apply the visionary steward"** (or run `/visionary-steward` if your agent exposes skills as slash commands). It defaults to the **basics** subset; pass `full` for the complete questionnaire-driven setup.
+
+> In a hurry and don't want to install anything? Just use [basics-prompt.md](basics-prompt.md) — paste it into your agent.
+
 ## Design Principles
 
 1. **The AI should ask before assuming.** The template contains defaults, but every project has a different operating model.
@@ -73,37 +108,34 @@ For an existing project, start with [playbooks/existing-project-repair.md](playb
 ```txt
 visionary-steward-template/
   README.md
-  ai-facilitator.md
+  ai-facilitator.md          # full facilitator prompt (template/clone use)
+  basics-prompt.md           # paste-anywhere quick prompt
   questionnaire.md
   output-map.md
   playbooks/
     new-project-bootstrap.md
     existing-project-repair.md
-  templates/
+  templates/                 # files to copy into a target project
     AGENTS.md
     docs/
       ai-decisions.md
       ai-operating-model.md
-    internal-docs/
-      ai/
-        architecture.md
-        coding-style.md
-        domain-model.md
-        integrations.md
-        quave-one.md
-        quality-gates.md
-        safety.md
-    .agents/
-      skills/
-        configure-quave-one/SKILL.md
-        create-work-item/SKILL.md
-        execute-work-item/SKILL.md
-        review-change/SKILL.md
-        qa-pass/SKILL.md
-        release-change/SKILL.md
-        analyze-feedback/SKILL.md
-        skill-template.md
+    internal-docs/ai/
+      architecture.md  coding-style.md  domain-model.md
+      integrations.md  quave-one.md  quality-gates.md  safety.md
+    .agents/skills/
+      configure-quave-one/  create-work-item/  execute-work-item/
+      review-change/  qa-pass/  release-change/  analyze-feedback/
+      skill-template.md
+  skills/                    # the installable Agent Skill (npx skills add …)
+    visionary-steward/
+      SKILL.md               # name + description + the procedure
+      references/            # bundled copies of playbooks/ + templates/ (travels on install)
+      scripts/
+        sync-references.sh   # regenerates references/ from the canonical files above
 ```
+
+`skills/visionary-steward/references/` is generated from the canonical `playbooks/` and `templates/` by `scripts/sync-references.sh`, so the installed skill is self-contained. Re-run that script after editing the originals.
 
 ## What Not To Do
 
