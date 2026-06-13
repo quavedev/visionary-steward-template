@@ -1,10 +1,22 @@
 # Visionary Steward Template
 
-> **In a hurry?** Open **[basics-prompt.md](basics-prompt.md)**, copy the prompt, and paste it into your coding agent from inside your project. It applies just the basics — a short `AGENTS.md`, the key `internal-docs/ai/*` docs, and a decisions log — so any future agent can work in the repo safely. For the full setup, keep reading.
+**What it does:** makes any repository safe for AI agents. It adds a short, always-loaded `AGENTS.md` contract plus focused reference docs — real commands, safety rules, architecture — so any coding agent (Claude Code, Codex, Cursor, Gemini CLI, …) understands your project and works without guessing.
 
-> **Want it as a reusable skill?** Install it into any agent with one command — `npx skills add quavedev/visionary-steward-template` — then ask your agent to "apply the visionary steward". See [Install as a skill](#install-as-a-skill).
+## Use it in 30 seconds
 
-This directory is a reusable template for turning a project into an AI-guided software system. It is also a portable **[Agent Skill](https://agentskills.io)**: [`skills/visionary-steward/`](skills/visionary-steward/SKILL.md) is a self-contained skill that any compliant agent (Claude Code, Codex, Cursor, Gemini CLI, …) can install and invoke by name instead of you pasting a prompt.
+**1. Install the skill** — one command, works with any agent (the open **[Agent Skills](https://agentskills.io)** standard):
+
+```bash
+npx skills add quavedev/visionary-steward-template
+```
+
+**2. From inside any project, tell your agent:**
+
+> apply the visionary steward
+
+That's it. It applies the **basics** by default (an `AGENTS.md` contract + key `internal-docs/ai/*` docs + a decisions log); say **full** for the complete, questionnaire-driven setup.
+
+**Prefer not to install anything?** Copy **[basics-prompt.md](basics-prompt.md)** and paste it into your agent. More install options are in [Install as a skill](#install-as-a-skill); the skill itself lives in [`skills/visionary-steward/`](skills/visionary-steward/SKILL.md).
 
 It is based on the Quave ONE pattern from "The visionary steward", but it is intentionally stack-neutral. It should work whether the user uses GitHub Projects, Linear, Jira, or Notion; Next.js, Rails, Django, Meteor, Laravel, or microservices; a monorepo or many repos; external APIs or a mostly self-contained product.
 
